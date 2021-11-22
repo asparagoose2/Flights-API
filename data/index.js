@@ -26,18 +26,6 @@ function getUserById(id) {
   return users.find((user) => user.id === id);
 }
 
-function addUser(user) {
-  users.push(user);
-}
-function removeUserById(id) {
-  users.splice(
-    users.findIndex((user) => user.id === id),
-    1
-  );
-}
-function updateUserById(id, user) {
-  users[users.findIndex((user) => user.id === id)] = user;
-}
 
 module.exports = {
   getAllFlights,
@@ -46,8 +34,5 @@ module.exports = {
   removeFlightById,
   updateFlightById,
   getUsers,
-  getUserById,
-  addUser,
-  removeUserById,
-  updateUserById,
+  getUserById
 };

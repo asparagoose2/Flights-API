@@ -1,54 +1,45 @@
 const DB = require('../data');
 
-exports.flightController = {
-    getFlights: (req, res) => {
-        DB.getFlights()
-            .then(flights => {
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.json(flights);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            });
+exports.fligtsController = {
+    getAllFlights: (req, res) => {
+        let flights = DB.getAllFlights()
+        if(flights.length > 0) {
+            res.status(200).json(flights);
+        } else {
+            res.status(404).json({message: 'No flights found'});
+        }
     },
-    getFlight: (req, res) => {
-        DB.getFlight(req.params.id)
-            .then(flight => {
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.json(flight);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            });
+    getFlightById: (req, res) => {
+        let flight = DB.getFlightById(req.params.id);
+        if(flight) {
+            res.status(200).json(flight);
+        } else {
+            res.status(404).json({message: 'Flight not found'});
+        }
     },
-    addFlight: (req, res) => {
-        DB.addFlight(req.body)
-            .then(flight => {
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.json(flight);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            });
+    createFlight: (req, res) => {
+        try {
+            DB.addFlight(req.body);
+            res.status(201).json({message: 'Flight created'});
+        } catch(err) {
+            res.status(500).json({message: 'Error creating flight'});
+        }
     },
     updateFlight: (req, res) => {
-        DB.updateFlight(req.params.id, req.body)
-            .then(flight => {
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.json(flight);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            });
+        try {
+            DB.updateFlightById(req.params.id, req.body);
+            res.status(200).json({message: 'Flight updated'});
+        } catch(err) {
+            console.log(err);
+            res.status(500).json({message: 'Error updating flight'});
+        }
     },
     deleteFlight: (req, res) => {
-        DB.deleteFlight(req.params.id)
-            .then(flight => {
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.json(flight);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            });
+        try {
+            DB.removeFlightById(req.params.id);
+            res.status(200).json({message: 'Flight deleted'});
+        } catch(err) {
+            res.status(500).json({message: 'Error deleting flight'});
+        }
     }
 }
