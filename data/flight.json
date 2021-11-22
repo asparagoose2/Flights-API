@@ -38,7 +38,6 @@
         "departureTime": "2016-10-10T21:25-03:00",
         "arrivalTime": "2016-10-11T05:00-04:00",
         "origin": "GRU",
-        "destination": "MIA",
-        "connectionDuration": 145
+        "destination": "MIA"
     }
   ]
