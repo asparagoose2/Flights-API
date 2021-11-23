@@ -6,7 +6,7 @@ exports.fligtsController = {
         if(flights.length > 0) {
             res.status(200).json(flights);
         } else {
-            res.status(404).json({message: 'No flights found'});
+            res.status(404).json({status: "Failed", message: 'No flights found'});
         }
     },
     getFlightById: (req, res) => {
@@ -14,15 +14,17 @@ exports.fligtsController = {
         if(flight) {
             res.status(200).json(flight);
         } else {
-            res.status(404).json({message: 'Flight not found'});
+            res.status(404).json({status:"Failed", message: 'Flight not found'});
         }
     },
     createFlight: (req, res) => {
         try {
+            console.log(req.body);
             DB.addFlight(req.body);
             res.status(201).json({status: "Success" ,message: 'Flight created'});
         } catch(err) {
             res.status(400).json({status: 'Failed', message: err.message});
+            console.log(err);
         }
     },
     updateFlight: (req, res) => {
@@ -31,7 +33,7 @@ exports.fligtsController = {
             res.status(200).json({status: "Success", message: 'Flight updated'});
         } catch(err) {
             console.log(err);
-            res.status(500).json({status: 'Failed', message: err.message});
+            res.status(400).json({status: 'Failed', message: err.message});
         }
     },
     deleteFlight: (req, res) => {
@@ -39,7 +41,7 @@ exports.fligtsController = {
             DB.removeFlightById(req.params.id);
             res.status(200).json({status: "Success", message: 'Flight deleted'});
         } catch(err) {
-            res.status(500).json({status: 'Failed', message: err.message});
+            res.status(400).json({status: 'Failed', message: err.message});
         }
     }
 }
