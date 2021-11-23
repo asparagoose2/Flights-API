@@ -12,21 +12,6 @@ const JSON_FORMTAT_ERROR = `The JSON format is incorrect.
     "destination": string - 3 letter code,
   }
 `
-const JSON_FORMTAT = `  
-  The JSON format is incorrect.
-  The correct format is:
-  ${JSON.stringify(
-    {
-      "id": "8bf2b3d7be09",
-      "company": "Aviana",
-      "points": 17000,
-      "duration": 515,
-      "departureTime": "2016-10-10T21:25-03:00",
-      "arrivalTime": "2016-10-11T05:00-04:00",
-      "origin": "GRU",
-      "destination": "MIA"
-    })}
-`
 
 const flights = require("./flight.json");
 const users = require("./users.json");
@@ -72,12 +57,11 @@ function updateFlightById(id, flight) {
   } 
   flights[index] = flight;
 }
-function getUsers() {
-  return users;
+
+function isUserRegistered(id) {
+  return users.find((user) => user.id === id) ? true : false;
 }
-function getUserById(id) {
-  return users.find((user) => user.id === id);
-}
+
 
 
 module.exports = {
@@ -86,6 +70,5 @@ module.exports = {
   addFlight,
   removeFlightById,
   updateFlightById,
-  getUsers,
-  getUserById
+  isUserRegistered
 };
