@@ -57,7 +57,7 @@ function updateFlightById(id, flight) {
   } 
   flights[index] = flight;
 }
-
+ 
 function isUserRegistered(id) {
   return users.find((user) => user.id === id) ? true : false;
 }
