@@ -30,7 +30,7 @@ app.use('/api', (req, res, next) => {
 
 app.use('/auth/:id', (req,res) => {
     try {
-        res.send(auth.giveToken(req.params.id));
+        res.json({status: "Success", data: auth.giveToken(req.params.id)});
     } catch(err) {
         res.status(400).json({status: 'Failed', message: err.message});
     }
@@ -41,7 +41,7 @@ app.use('/auth/:id', (req,res) => {
 app.use('/api/flights', flightsRouter);
 
 app.use((req, res) => {
-    res.status(400).send('Something is broken!');
+    res.status(400).json({status: "Failed", data: 'Endpoint is invalid'});
 });
 
 app.listen(port, () => console.log(`Express server is running on port ${port}`));
