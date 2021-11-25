@@ -28,7 +28,7 @@ async function getWeatherByCityName(cityName) {
 async function getWeatherByAirportCode(airportCode) {
     let cityName = await getCityNameFromAirportCode(airportCode);
     let weather = await getWeatherByCityName(cityName);
-    return JSON.stringify(weather);
+    return weather;
 }
 
 module.exports = {

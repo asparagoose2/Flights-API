@@ -1,6 +1,7 @@
 const DB = require('../data');
 const axios = require("axios");
 require('dotenv').config();
+const WeatherAPI = require("../modules/weatherAPI");
 
 exports.fligtsController = {
     getAllFlights: (req, res) => {
@@ -14,17 +15,10 @@ exports.fligtsController = {
     getFlightById: (req, res) => {
         let flight = DB.getFlightById(req.params.id);
         if(flight) {
-            axios({
-                method: 'get',
-                url: 'https://www.air-port-codes.com/api/v1/single?iata=' + flight.destination,
-                headers: {
-                    "APC-Auth": process.env.ASP_API_KEY,
-                    "APC-Auth-Secret": process.env.ASP_API_SECRET
-                }
-            }).then(response => {
+            WeatherAPI.getWeatherByAirportCode(flight.destination).then(weather => {
                 console.log("here");
-            console.log(response);
-            res.status(200).json({status: "Success", data: flight});
+            console.log(weather);
+            res.status(200).json({status: "Success", data: {flightData: flight, weather: weather}});
             }).catch(err => {
                 console.log(err);
                 res.status(400).json({status: "Failed", data: err.message});
