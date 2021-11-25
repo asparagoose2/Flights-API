@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/DCS-Shenkar-2022/assignment9---ex2-express-mongo-heroku-asparagoose2#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "pino": "^7.3.0"

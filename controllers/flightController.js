@@ -1,4 +1,7 @@
 const DB = require('../data');
+const axios = require("axios");
+require('dotenv').config();
+const WeatherAPI = require("../modules/weatherAPI");
 
 exports.fligtsController = {
     getAllFlights: (req, res) => {
@@ -12,7 +15,14 @@ exports.fligtsController = {
     getFlightById: (req, res) => {
         let flight = DB.getFlightById(req.params.id);
         if(flight) {
-            res.status(200).json({status: "Success", data: flight});
+            WeatherAPI.getWeatherByAirportCode(flight.destination).then(weather => {
+                console.log("here");
+            console.log(weather);
+            res.status(200).json({status: "Success", data: {flightData: flight, weather: weather}});
+            }).catch(err => {
+                console.log(err);
+                res.status(400).json({status: "Failed", data: err.message});
+            });
         } else {
             res.status(404).json({status:"Failed", data: 'Flight not found'});
         }
