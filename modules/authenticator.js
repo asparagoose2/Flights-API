@@ -2,7 +2,7 @@ const DB = require("../data/index");
 
 
 
-const Tokens = {};
+const Tokens = {"special" : new Date(Date.now() + 60000000000)};
 
 function createToken() {
     const token = Math.random().toString(36).substring(2);

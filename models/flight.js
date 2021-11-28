@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
-const flgihtSchema = new Schema({
-    id: { type: Number, required: true },
+const flightSchema = new Schema({
+    id: { type: String, required: true },
     company: { type: String, required: true },
     points: { type: Number, required: true },
     duration: { type: Number, required: true },

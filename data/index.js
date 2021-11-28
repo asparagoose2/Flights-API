@@ -1,3 +1,7 @@
+const Flight = require('../models/flight');
+const User = require('../models/user');
+
+
 
 const JSON_FORMTAT_ERROR = `The JSON format is incorrect.
   The correct format is:
@@ -32,30 +36,30 @@ function validateFlight(flight) {
 }
 
 function getAllFlights() {
-  return flights;
+  return Flight.find({},{'_id': false});
+ 
+  
 }
 function getFlightById(id) {
-  return flights.find((flight) => flight.id === id);
+  return Flight.findOne({id: id},{'_id': false});
 }
 function addFlight(flight) {
-  console.log("object");
   validateFlight(flight);
-  flights.push(flight);
+  let newFlight = new Flight(flight);
+  newFlight.save();
+  console.log(newFlight);
 }
 function removeFlightById(id) {
-    let index = flights.findIndex((flight) => flight.id === id);
-    if(index < 0) {
-      throw new Error("Flight not found");
-    }
-    flights.splice(index, 1);
+    return Flight.findOneAndDelete({id: id});
+    // let index = flights.findIndex((flight) => flight.id === id);
+    // if(index < 0) {
+    //   throw new Error("Flight not found");
+    // }
+    // flights.splice(index, 1);
 }
 function updateFlightById(id, flight) {
   validateFlight(flight);
-  let index = flights.findIndex((flight) => flight.id === id);
-  if(index < 0) {
-    throw new Error("Flight not found");
-  } 
-  flights[index] = flight;
+  return Flight.findOneAndUpdate({id: id}, flight);
 }
  
 function isUserRegistered(id) {
