@@ -17,9 +17,6 @@ const JSON_FORMTAT_ERROR = `The JSON format is incorrect.
   }
 `
 
-const flights = require("./flight.json");
-const users = require("./users.json");
-
 function validateFlight(flight) {
   if (!flight.id || !flight.company || !flight.points || !flight.duration || !flight.departureTime || !flight.arrivalTime || !flight.origin || !flight.destination) {
     throw new Error(JSON_FORMTAT_ERROR);
@@ -55,7 +52,7 @@ function updateFlightById(id, flight) {
 }
  
 function isUserRegistered(id) {
-  return users.find((user) => user.id === id) ? true : false;
+  return User.findOne({id: id});
 }
 
 

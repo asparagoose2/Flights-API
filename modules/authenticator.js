@@ -26,11 +26,14 @@ function removeToken(token) {
     delete Tokens[token];
 }
 
-function giveToken(user) {
-    if(DB.isUserRegistered(user)) {
-        return createToken();
+async function giveToken(user) {
+    let usr = await DB.isUserRegistered(user);
+    if(usr) {
+        let token = createToken();
+        return token;
+    } else {
+        throw new Error("User not registered");
     }
-    throw new Error("User not registered");
 }
 
 
