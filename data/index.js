@@ -22,7 +22,6 @@ const users = require("./users.json");
 
 // function that validates the flight object
 function validateFlight(flight) {
-  console.log(flight.id);
   if (!flight.id || !flight.company || !flight.points || !flight.duration || !flight.departureTime || !flight.arrivalTime || !flight.origin || !flight.destination) {
     throw new Error(JSON_FORMTAT_ERROR);
   } else if (flight.points < 0 || flight.duration < 0) {
@@ -47,8 +46,7 @@ function addFlight(flight) {
   validateFlight(flight);
   let newFlight = new Flight(flight);
   newFlight.save();
-  console.log(newFlight);
-}
+=}
 function removeFlightById(id) {
     return Flight.findOneAndDelete({id: id});
     // let index = flights.findIndex((flight) => flight.id === id);

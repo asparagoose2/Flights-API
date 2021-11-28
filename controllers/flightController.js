@@ -33,7 +33,6 @@ exports.fligtsController = {
     },
     createFlight: (req, res) => {
         try {
-            console.log(req.body);
             DB.addFlight(req.body);
             res.status(201).json({status: "Success" ,data: 'Flight created'});
         } catch(err) {
