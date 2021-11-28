@@ -29,11 +29,22 @@ app.use('/api', (req, res, next) => {
 });
 
 app.use('/auth/:id', (req,res) => {
+
+    auth.giveToken(req.params.id).then(token => {
+        res.json({status: "Success", data: token});
+    }).catch(err => {
+        res.status(500).json({status: "Failed", data: err.message});
+    });
+
+    /*
     try {
-        res.json({status: "Success", data: auth.giveToken(req.params.id)});
+        auth.giveToken(req.params.id).then(token => {
+            res.json({status: "Success", data: token});
+        });   
     } catch(err) {
         res.status(400).json({status: 'Failed', message: err.message});
     }
+    */
 });
 
 
