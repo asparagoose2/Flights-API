@@ -46,7 +46,7 @@ exports.fligtsController = {
                 if(flight) {
                     res.status(200).json({status: "Success", data: 'Flight updated'});
                 } else {
-                    res.status(404).json({status: "Failed", data: 'Flight not found'});
+                    res.status(404).json({status: "Failed", data: err.message});
                 }})
         } catch(err) {
             console.log(err);
