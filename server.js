@@ -9,7 +9,6 @@ const auth = require("./modules/authenticator");
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// app.use(logger("dev")); 
 
 app.use('/api', (req, res, next) => {
     if(!req.headers.access_token) {
@@ -19,8 +18,8 @@ app.use('/api', (req, res, next) => {
         });
     }
     try {
-            auth.validateToken(req.headers.access_token)
-            next();
+        auth.validateToken(req.headers.access_token)
+        next();
     } catch(err) {
          res.status(401).json({
             status: "Failed",
@@ -29,25 +28,12 @@ app.use('/api', (req, res, next) => {
 });
 
 app.use('/auth/:id', (req,res) => {
-
     auth.giveToken(req.params.id).then(token => {
         res.json({status: "Success", data: token});
     }).catch(err => {
         res.status(500).json({status: "Failed", data: err.message});
     });
-
-    /*
-    try {
-        auth.giveToken(req.params.id).then(token => {
-            res.json({status: "Success", data: token});
-        });   
-    } catch(err) {
-        res.status(400).json({status: 'Failed', message: err.message});
-    }
-    */
 });
-
-
 
 app.use('/api/flights', flightsRouter);
 

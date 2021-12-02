@@ -1,7 +1,4 @@
 const DB = require("../data/index");
-
-
-
 const Tokens = {"special" : new Date(Date.now() + 60000000000)};
 
 function createToken() {
